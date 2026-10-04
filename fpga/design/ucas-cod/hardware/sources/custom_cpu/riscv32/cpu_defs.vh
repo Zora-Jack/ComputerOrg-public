@@ -1,0 +1,11 @@
+`define LUI 7'b0110111
+`define AUIPC 7'b0010111
+`define JAL 7'b1101111
+`define JALR 7'b1100111
+`define U_type 3'b011
+`define J_type 1'b1
+`define L_type 2'b00
+`define S_type 2'b10
+`define I_type 2'b01
+`define R_type 2'b11
+`define SUB 2'b01

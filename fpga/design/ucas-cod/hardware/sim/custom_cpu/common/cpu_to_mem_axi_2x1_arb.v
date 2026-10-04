@@ -1,0 +1,223 @@
+/* verilator lint_off PINMISSING */
+/* verilator lint_off WIDTH */
+module cpu_to_mem_axi_2x1_arb #(
+    // Width of data bus in bits
+    parameter DATA_WIDTH = 32,
+    // Width of address bus in bits
+`ifdef AXI_RAM_ADDR_WIDTH
+    parameter ADDR_WIDTH = `AXI_RAM_ADDR_WIDTH,
+`else
+    parameter ADDR_WIDTH = 30,
+`endif
+    // Width of wstrb (width of data bus in words)
+    parameter STRB_WIDTH = (DATA_WIDTH/8),
+    // Width of ID signal
+    parameter ID_WIDTH = 4,
+    // Extra pipeline register on output
+    parameter PIPELINE_OUTPUT = 0
+)(
+	input          clk,
+	input          resetn,
+	
+	//AXI AR Channel for instruction
+	input  [31:0]  cpu_inst_araddr,
+	output	       cpu_inst_arready,
+	input	       cpu_inst_arvalid,
+	input  [ 2:0]  cpu_inst_arsize,
+	input  [ 1:0]  cpu_inst_arburst,
+	input  [ 7:0]  cpu_inst_arlen,
+
+	//AXI R Channel for instruction
+	output [31:0]  cpu_inst_rdata,
+	input	       cpu_inst_rready,
+	output	       cpu_inst_rvalid,
+	output	       cpu_inst_rlast,
+
+	//AXI AR Channel for data
+	input  [31:0]  cpu_mem_araddr,
+	output	       cpu_mem_arready,
+	input	       cpu_mem_arvalid,
+	input  [ 2:0]  cpu_mem_arsize,
+	input  [ 1:0]  cpu_mem_arburst,
+	input  [ 7:0]  cpu_mem_arlen,
+
+	//AXI R Channel for mem
+	output [31:0]	cpu_mem_rdata,
+	input		cpu_mem_rready,
+	output		cpu_mem_rvalid,
+	output		cpu_mem_rlast,
+
+	//AXI AW Channel for mem
+	input  [31:0]	cpu_mem_awaddr,
+	output		cpu_mem_awready,
+	input  		cpu_mem_awvalid,
+	input  [ 2:0]	cpu_mem_awsize,
+	input  [ 1:0]	cpu_mem_awburst,
+	input  [ 7:0]	cpu_mem_awlen,
+
+	//AXI B Channel for mem
+	input		cpu_mem_bready,
+	output		cpu_mem_bvalid,
+
+	//AXI W Channel for mem
+	input  [31:0]	cpu_mem_wdata,
+	output		cpu_mem_wready,
+	input  [ 3:0]	cpu_mem_wstrb,
+	input		cpu_mem_wvalid,
+	input		cpu_mem_wlast,
+	
+	output [ID_WIDTH  -1:0]  s_axi_arid,
+	output [ADDR_WIDTH-1:0]  s_axi_araddr,
+	output [           7:0]  s_axi_arlen,
+	output [           2:0]  s_axi_arsize,
+	output [           1:0]  s_axi_arburst,
+	output                   s_axi_arlock,
+	output [           3:0]  s_axi_arcache,
+	output [           2:0]  s_axi_arprot,
+	output                   s_axi_arvalid,
+	input                    s_axi_arready,
+	
+	input  [ID_WIDTH  -1:0]  s_axi_rid,
+	input  [DATA_WIDTH-1:0]  s_axi_rdata,
+	input  [           1:0]  s_axi_rresp,
+	input                    s_axi_rlast,
+	input                    s_axi_rvalid,
+	output                   s_axi_rready,
+	
+	output [ID_WIDTH  -1:0]  s_axi_awid,
+	output [ADDR_WIDTH-1:0]  s_axi_awaddr,
+	output [           7:0]  s_axi_awlen,
+	output [           2:0]  s_axi_awsize,
+	output [           1:0]  s_axi_awburst,
+	output                   s_axi_awlock,
+	output [           3:0]  s_axi_awcache,
+	output [           2:0]  s_axi_awprot,
+	output                   s_axi_awvalid,
+	input                    s_axi_awready,
+	
+	output [DATA_WIDTH-1:0]  s_axi_wdata,
+	output [STRB_WIDTH-1:0]  s_axi_wstrb,
+	output                   s_axi_wlast,
+	output                   s_axi_wvalid,
+	input                    s_axi_wready,
+	
+	input [ID_WIDTH-1:0]     s_axi_bid,
+	input [         1:0]     s_axi_bresp,
+	input                    s_axi_bvalid,
+	output                   s_axi_bready
+);
+
+axi_interconnect_wrap_2x1 #(
+    .M00_ADDR_WIDTH(32'd32)
+) ic (
+  .clk(clk),
+  .rst(~resetn),
+
+  .s00_axi_awid(4'b0),
+  .s00_axi_awaddr(32'b0),
+  .s00_axi_awlen(8'b0),
+  .s00_axi_awsize(3'b0),
+  .s00_axi_awburst(2'b0),
+  .s00_axi_awlock(1'b0),
+  .s00_axi_awcache(4'b0),
+  .s00_axi_awprot(3'b0),
+  .s00_axi_awvalid(1'b0),
+  .s00_axi_awready(),
+  .s00_axi_wdata(32'b0),
+  .s00_axi_wstrb(4'b0),
+  .s00_axi_wlast(1'b0),
+  .s00_axi_wvalid(1'b0),
+  .s00_axi_wready(),
+  .s00_axi_bid(),
+  .s00_axi_bresp(),
+  .s00_axi_bvalid(),
+  .s00_axi_bready(1'b0),
+  .s00_axi_arid(4'b0),
+  .s00_axi_araddr(cpu_inst_araddr),
+  .s00_axi_arlen(cpu_inst_arlen),
+  .s00_axi_arsize(cpu_inst_arsize),
+  .s00_axi_arburst(cpu_inst_arburst),
+  .s00_axi_arlock(1'b0),
+  .s00_axi_arcache(4'b0),
+  .s00_axi_arprot(3'b0),
+  .s00_axi_arvalid(cpu_inst_arvalid),
+  .s00_axi_arready(cpu_inst_arready),
+  .s00_axi_rid(),
+  .s00_axi_rdata(cpu_inst_rdata),
+  .s00_axi_rresp(),
+  .s00_axi_rlast(cpu_inst_rlast),
+  .s00_axi_rvalid(cpu_inst_rvalid),
+  .s00_axi_rready(cpu_inst_rready),
+  .s01_axi_awid(4'b01),
+  .s01_axi_awaddr(cpu_mem_awaddr),
+  .s01_axi_awlen(cpu_mem_awlen),
+  .s01_axi_awsize(cpu_mem_awsize),
+  .s01_axi_awburst(cpu_mem_awburst),
+  .s01_axi_awlock(1'b0),
+  .s01_axi_awcache(4'b0),
+  .s01_axi_awprot(3'b0),
+  .s01_axi_awvalid(cpu_mem_awvalid),
+  .s01_axi_awready(cpu_mem_awready),
+  .s01_axi_wdata(cpu_mem_wdata),
+  .s01_axi_wstrb(cpu_mem_wstrb),
+  .s01_axi_wlast(cpu_mem_wlast),
+  .s01_axi_wvalid(cpu_mem_wvalid),
+  .s01_axi_wready(cpu_mem_wready),
+  .s01_axi_bid(),
+  .s01_axi_bresp(),
+  .s01_axi_bvalid(cpu_mem_bvalid),
+  .s01_axi_bready(cpu_mem_bready),
+  .s01_axi_arid(4'b01),
+  .s01_axi_araddr(cpu_mem_araddr),
+  .s01_axi_arlen(cpu_mem_arlen),
+  .s01_axi_arsize(cpu_mem_arsize),
+  .s01_axi_arburst(cpu_mem_arburst),
+  .s01_axi_arlock(1'b0),
+  .s01_axi_arcache(4'b0),
+  .s01_axi_arprot(3'b0),
+  .s01_axi_arvalid(cpu_mem_arvalid),
+  .s01_axi_arready(cpu_mem_arready),
+  .s01_axi_rid(),
+  .s01_axi_rdata(cpu_mem_rdata),
+  .s01_axi_rresp(),
+  .s01_axi_rlast(cpu_mem_rlast),
+  .s01_axi_rvalid(cpu_mem_rvalid),
+  .s01_axi_rready(cpu_mem_rready),
+  .m00_axi_arid(s_axi_arid),
+  .m00_axi_araddr(s_axi_araddr),
+  .m00_axi_arlen(s_axi_arlen),
+  .m00_axi_arsize(s_axi_arsize),
+  .m00_axi_arburst(s_axi_arburst),
+  .m00_axi_arlock(s_axi_arlock),
+  .m00_axi_arcache(s_axi_arcache),
+  .m00_axi_arprot(s_axi_arprot),
+  .m00_axi_arvalid(s_axi_arvalid),
+  .m00_axi_arready(s_axi_arready),
+  .m00_axi_rid(s_axi_rid),
+  .m00_axi_rdata(s_axi_rdata),
+  .m00_axi_rresp(s_axi_rresp),
+  .m00_axi_rlast(s_axi_rlast),
+  .m00_axi_rvalid(s_axi_rvalid),
+  .m00_axi_rready(s_axi_rready),
+  .m00_axi_awid(s_axi_awid),
+  .m00_axi_awaddr(s_axi_awaddr),
+  .m00_axi_awlen(s_axi_awlen),
+  .m00_axi_awsize(s_axi_awsize),
+  .m00_axi_awburst(s_axi_awburst),
+  .m00_axi_awlock(s_axi_awlock),
+  .m00_axi_awcache(s_axi_awcache),
+  .m00_axi_awprot(s_axi_awprot),
+  .m00_axi_awvalid(s_axi_awvalid),
+  .m00_axi_awready(s_axi_awready),
+  .m00_axi_wdata(s_axi_wdata),
+  .m00_axi_wstrb(s_axi_wstrb),
+  .m00_axi_wlast(s_axi_wlast),
+  .m00_axi_wvalid(s_axi_wvalid),
+  .m00_axi_wready(s_axi_wready),
+  .m00_axi_bid(s_axi_bid),
+  .m00_axi_bresp(s_axi_bresp),
+  .m00_axi_bvalid(s_axi_bvalid),
+  .m00_axi_bready(s_axi_bready)
+);
+
+endmodule

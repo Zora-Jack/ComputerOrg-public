@@ -1,0 +1,222 @@
+/home/serve-ide/jizekai24/fpga/sim_out/verilator/bin/verilator --lint-only --top-module custom_cpu_test --trace-fst +incdir+fpga/design/ucas-cod/hardware/sim/custom_cpu +incdir+fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/riscv32/include --relative-includes -DTRACE_FILE=\"software/workload/ucas-cod/benchmark/simple_test/medium/riscv32/trace/add.trace\"	 -DUSE_ICACHE -DUSE_DCACHE fpga/design/ucas-cod/hardware/sim/../sources/alu/alu.v fpga/design/ucas-cod/hardware/sim/../sources/reg_file/reg_file.v fpga/design/ucas-cod/hardware/sim/../sources/shifter/shifter.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/riscv32/custom_cpu.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/riscv32/ex_stage.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/riscv32/hazard_unit.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/riscv32/id_stage.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/riscv32/if_stage.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/riscv32/mem_stage.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/riscv32/pipeline_reg.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/riscv32/wb_stage.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/cache/data_array.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/cache/dcache_top.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/cache/icache_top.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/cache/tag_array.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/dma/dma_engine.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/dma/engine_core.v fpga/design/ucas-cod/hardware/sim/../sources/custom_cpu/dma/fifo.v fpga/design/ucas-cod/hardware/sim/../sources/../wrapper/custom_cpu/dcache_wrapper.v fpga/design/ucas-cod/hardware/sim/../sources/../wrapper/custom_cpu/dma_mmio_wrapper.v fpga/design/ucas-cod/hardware/sim/../sources/../wrapper/custom_cpu/dnn_acc_wrapper.v fpga/design/ucas-cod/hardware/sim/../sources/../wrapper/custom_cpu/icache_wrapper.v fpga/design/ucas-cod/hardware/sim/../sources/../wrapper/custom_cpu/inst_if_wrapper.v fpga/design/ucas-cod/hardware/sim/../sources/../wrapper/custom_cpu/mem_if_wrapper.v fpga/design/ucas-cod/hardware/sim/../sources/../wrapper/custom_cpu/wall_clk_counter.v fpga/design/ucas-cod/hardware/sim/custom_cpu/turbo/cpu_test_top.v fpga/design/ucas-cod/hardware/sim/custom_cpu/turbo/custom_cpu_test.v fpga/design/ucas-cod/hardware/sim/custom_cpu/turbo/custom_cpu_test_iverilog.v fpga/design/ucas-cod/hardware/sim/custom_cpu/common/arbiter.v fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect_wrap_2x1.v fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_ram.v fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_ram_wrap.v fpga/design/ucas-cod/hardware/sim/custom_cpu/common/cpu_to_mem_axi_2x1_arb.v fpga/design/ucas-cod/hardware/sim/custom_cpu/common/priority_encoder.v fpga/design/ucas-cod/hardware/sim/custom_cpu/common/pseudo_random.v fpga/design/ucas-cod/hardware/sim/custom_cpu/common/sim_fifo.v fpga/design/ucas-cod/hardware/sim/custom_cpu/common/uart_sim.v /home/serve-ide/jizekai24/fpga/design/ucas-cod/hardware/sim/custom_cpu/turbo/sim_main.cpp
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:218:41: Logical operator COND expects 1 bit on the Conditional Test, but Conditional Test's VARREF 'M_BASE_ADDR' generates 32 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  218 | parameter M_BASE_ADDR_INT = M_BASE_ADDR ? M_BASE_ADDR : calcBaseAddrs(0);
+      |                                         ^
+                ... For warning description see https://verilator.org/warn/WIDTH?v=4.221
+                ... Use "/* verilator lint_off WIDTH */" and lint_on around source to disable this message.
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/priority_encoder.v:86:21: Operator ASSIGNW expects 1 bits on the Assign RHS, but Assign RHS's ARRAYSEL generates 2 bits.
+                                                                                            : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst.arb_inst.priority_encoder_inst
+   86 | assign output_valid = stage_valid[LEVELS-1];
+      |                     ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/arbiter.v:123:57: Operator SUB expects 32 bits on the RHS, but RHS's VARREF 'masked_request_index' generates 2 bits.
+                                                                                    : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst.arb_inst
+  123 |                     mask_next = {PORTS{1'b1}} >> (PORTS - masked_request_index);
+      |                                                         ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/arbiter.v:132:57: Operator SUB expects 32 bits on the RHS, but RHS's VARREF 'request_index' generates 2 bits.
+                                                                                    : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst.arb_inst
+  132 |                     mask_next = {PORTS{1'b1}} >> (PORTS - request_index);
+      |                                                         ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/arbiter.v:109:63: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's AND generates 4 bits.
+                                                                                    : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst.arb_inst
+  109 |     end else if (ARB_BLOCK && ARB_BLOCK_ACK && grant_valid && !(grant_reg & acknowledge)) begin
+      |                                                               ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/arbiter.v:104:37: Logical operator LOGAND expects 1 bit on the RHS, but RHS's AND generates 4 bits.
+                                                                                    : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst.arb_inst
+  104 |     if (ARB_BLOCK && !ARB_BLOCK_ACK && grant_reg & request) begin
+      |                                     ^~
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:230:38: Logical operator LOGAND expects 1 bit on the LHS, but LHS's SEL generates 32 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  230 |         if (M_ADDR_WIDTH[i*32 +: 32] && (M_ADDR_WIDTH[i*32 +: 32] < 12 || M_ADDR_WIDTH[i*32 +: 32] > ADDR_WIDTH)) begin
+      |                                      ^~
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:238:9: Logical operator IF expects 1 bit on the If, but If's SEL generates 32 bits.
+                                                                                            : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  238 |         if (M_ADDR_WIDTH[i*32 +: 32]) begin
+      |         ^~
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:266:42: Logical operator LOGAND expects 1 bit on the LHS, but LHS's SEL generates 32 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  266 |             if (M_ADDR_WIDTH[i*32 +: 32] && M_ADDR_WIDTH[j*32 +: 32]) begin
+      |                                          ^~
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:266:42: Logical operator LOGAND expects 1 bit on the RHS, but RHS's SEL generates 32 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  266 |             if (M_ADDR_WIDTH[i*32 +: 32] && M_ADDR_WIDTH[j*32 +: 32]) begin
+      |                                          ^~
+%Warning-LITENDIAN: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:306:5: Little bit endian vector: left < right of bit range: [-1:0]
+                                                                                                : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  306 | reg [CL_M_COUNT-1:0] m_select_reg = 2'd0, m_select_next;
+      |     ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:437:63: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  437 | wire                    current_m_axi_awlock    = m_axi_awlock[m_select_reg];
+      |                                                               ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:443:64: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  443 | wire                    current_m_axi_awvalid   = m_axi_awvalid[m_select_reg];
+      |                                                                ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:444:64: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  444 | wire                    current_m_axi_awready   = m_axi_awready[m_select_reg];
+      |                                                                ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:447:62: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  447 | wire                    current_m_axi_wlast     = m_axi_wlast[m_select_reg];
+      |                                                              ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:449:63: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  449 | wire                    current_m_axi_wvalid    = m_axi_wvalid[m_select_reg];
+      |                                                               ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:450:63: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  450 | wire                    current_m_axi_wready    = m_axi_wready[m_select_reg];
+      |                                                               ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:454:63: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  454 | wire                    current_m_axi_bvalid    = m_axi_bvalid[m_select_reg];
+      |                                                               ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:455:63: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  455 | wire                    current_m_axi_bready    = m_axi_bready[m_select_reg];
+      |                                                               ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:461:63: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  461 | wire                    current_m_axi_arlock    = m_axi_arlock[m_select_reg];
+      |                                                               ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:467:64: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  467 | wire                    current_m_axi_arvalid   = m_axi_arvalid[m_select_reg];
+      |                                                                ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:468:64: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  468 | wire                    current_m_axi_arready   = m_axi_arready[m_select_reg];
+      |                                                                ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:472:62: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  472 | wire                    current_m_axi_rlast     = m_axi_rlast[m_select_reg];
+      |                                                              ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:474:63: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  474 | wire                    current_m_axi_rvalid    = m_axi_rvalid[m_select_reg];
+      |                                                               ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:475:63: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  475 | wire                    current_m_axi_rready    = m_axi_rready[m_select_reg];
+      |                                                               ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:485:17: Operator ASSIGNW expects 1 bits on the Assign RHS, but Assign RHS's SHIFTR generates 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  485 | assign s_select = grant_encoded >> 1;
+      |                 ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:618:39: Operator ASSIGN expects 2 bits on the Assign RHS, but Assign RHS's VARREF 'i' generates 32 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  618 |                         m_select_next = i;
+      |                                       ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:619:41: Operator ASSIGN expects 4 bits on the Assign RHS, but Assign RHS's VARREF 'j' generates 32 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  619 |                         axi_region_next = j;
+      |                                         ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:617:64: Logical operator LOGAND expects 1 bit on the LHS, but LHS's SEL generates 32 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  617 |                     if (M_ADDR_WIDTH[(i*M_REGIONS+j)*32 +: 32] && (!M_SECURE[i] || !axi_prot_reg[1]) && ((read ? M_CONNECT_READ : M_CONNECT_WRITE) & (1 << (s_select+i*S_COUNT))) && (axi_addr_reg >> M_ADDR_WIDTH[(i*M_REGIONS+j)*32 +: 32]) == (M_BASE_ADDR_INT[(i*M_REGIONS+j)*ADDR_WIDTH +: ADDR_WIDTH] >> M_ADDR_WIDTH[(i*M_REGIONS+j)*32 +: 32])) begin
+      |                                                                ^~
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:617:165: Operator ADD expects 32 bits on the LHS, but LHS's VARREF 's_select' generates 1 bits.
+                                                                                              : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  617 |                     if (M_ADDR_WIDTH[(i*M_REGIONS+j)*32 +: 32] && (!M_SECURE[i] || !axi_prot_reg[1]) && ((read ? M_CONNECT_READ : M_CONNECT_WRITE) & (1 << (s_select+i*S_COUNT))) && (axi_addr_reg >> M_ADDR_WIDTH[(i*M_REGIONS+j)*32 +: 32]) == (M_BASE_ADDR_INT[(i*M_REGIONS+j)*ADDR_WIDTH +: ADDR_WIDTH] >> M_ADDR_WIDTH[(i*M_REGIONS+j)*32 +: 32])) begin
+      |                                                                                                                                                                     ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:617:102: Logical operator LOGAND expects 1 bit on the RHS, but RHS's AND generates 32 or 2 bits.
+                                                                                              : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  617 |                     if (M_ADDR_WIDTH[(i*M_REGIONS+j)*32 +: 32] && (!M_SECURE[i] || !axi_prot_reg[1]) && ((read ? M_CONNECT_READ : M_CONNECT_WRITE) & (1 << (s_select+i*S_COUNT))) && (axi_addr_reg >> M_ADDR_WIDTH[(i*M_REGIONS+j)*32 +: 32]) == (M_BASE_ADDR_INT[(i*M_REGIONS+j)*ADDR_WIDTH +: ADDR_WIDTH] >> M_ADDR_WIDTH[(i*M_REGIONS+j)*32 +: 32])) begin
+      |                                                                                                      ^~
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:628:38: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  628 |                     m_axi_rready_next[m_select_reg] = s_axi_rready_int_early;
+      |                                      ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:653:35: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  653 |                 m_axi_awvalid_next[m_select_reg] = 1'b1;
+      |                                   ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:666:38: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  666 |                     m_axi_bready_next[m_select_reg] = 1'b1;
+      |                                      ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:677:30: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  677 |             m_axi_bready_next[m_select_reg] = 1'b1;
+      |                              ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:680:34: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  680 |                 m_axi_bready_next[m_select_reg] = 1'b0;
+      |                                  ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:704:30: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  704 |             m_axi_rready_next[m_select_reg] = s_axi_rready_int_early;
+      |                              ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:707:35: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  707 |                 m_axi_arvalid_next[m_select_reg] = 1'b1;
+      |                                   ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:720:38: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  720 |                     m_axi_rready_next[m_select_reg] = 1'b0;
+      |                                      ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:753:30: Logical operator LOGOR expects 1 bit on the RHS, but RHS's VARREF 'acknowledge' generates 4 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  753 |             if (!grant_valid || acknowledge) begin
+      |                              ^~
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:812:42: Operator ASSIGN expects 2 bits on the Assign RHS, but Assign RHS's CONST '1'h0' generates 1 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  812 | reg [S_COUNT-1:0]     s_axi_rvalid_reg = 1'b0, s_axi_rvalid_next;
+      |                                          ^~~~
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:866:26: Operator ASSIGNDLY expects 2 bits on the Assign RHS, but Assign RHS's CONST '1'h0' generates 1 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  866 |         s_axi_rvalid_reg <= 1'b0;
+      |                          ^~
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:939:30: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  939 |             m_axi_wvalid_next[m_select_reg] = m_axi_wvalid_int;
+      |                              ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/axi_interconnect.v:948:26: Bit extraction of var[0:0] requires 1 bit index, not 2 bits.
+                                                                                             : ... In instance custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+  948 |         m_axi_wvalid_next[m_select_reg] = temp_m_axi_wvalid_reg;
+      |                          ^
+%Warning-WIDTH: fpga/design/ucas-cod/hardware/sim/../sources/alu/alu.v:38:35: Operator ADD expects 33 bits on the RHS, but RHS's VARREF 'op_minus' generates 1 bits.
+                                                                            : ... In instance custom_cpu_test.u_cpu_test.u_cpu.ualu
+   38 |  assign {Carry,add_res} = A + B_1 + op_minus;
+      |                                   ^
+%Warning-UNOPTFLAT: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/priority_encoder.v:54:16: Signal unoptimizable: Feedback to clock or circular logic: 'custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst.arb_inst.priority_encoder_inst.stage_enc'
+   54 | wire [W/2-1:0] stage_enc[LEVELS-1:0];
+      |                ^~~~~~~~~
+                    fpga/design/ucas-cod/hardware/sim/custom_cpu/common/priority_encoder.v:54:16:      Example path: custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst.arb_inst.priority_encoder_inst.stage_enc
+                    fpga/design/ucas-cod/hardware/sim/custom_cpu/common/priority_encoder.v:77:60:      Example path: ASSIGNW
+                    fpga/design/ucas-cod/hardware/sim/custom_cpu/common/priority_encoder.v:54:16:      Example path: custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst.arb_inst.priority_encoder_inst.stage_enc
+%Warning-UNOPTFLAT: fpga/design/ucas-cod/hardware/sim/custom_cpu/common/priority_encoder.v:53:16: Signal unoptimizable: Feedback to clock or circular logic: 'custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst.arb_inst.priority_encoder_inst.stage_valid'
+   53 | wire [W/2-1:0] stage_valid[LEVELS-1:0];
+      |                ^~~~~~~~~~~
+                    fpga/design/ucas-cod/hardware/sim/custom_cpu/common/priority_encoder.v:53:16:      Example path: custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst.arb_inst.priority_encoder_inst.stage_valid
+                    fpga/design/ucas-cod/hardware/sim/custom_cpu/common/priority_encoder.v:74:38:      Example path: ASSIGNW
+                    fpga/design/ucas-cod/hardware/sim/custom_cpu/common/priority_encoder.v:53:16:      Example path: custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst.arb_inst.priority_encoder_inst.stage_valid
+%Error: Exiting due to 47 warning(s)
+make: [fpga/design/ucas-cod/scripts/hardware.mk:44: bhv_sim_verilator] Error 1 (ignored)
+fpga/sim_out/custom_cpu/custom_cpu +DUMP="fpga/sim_out/custom_cpu/dump.fst" +INITMEM="software/workload/ucas-cod/benchmark/simple_test/medium/riscv32/sim/add.mem" +TRACE_FILE="software/workload/ucas-cod/benchmark/simple_test/medium/riscv32/trace/add.trace"
+Addressing configuration for axi_interconnect instance TOP.custom_cpu_test.u_cpu_test.u_cpu_arb.ic.axi_interconnect_inst
+ 0 ( 0): 00000000 / 32 -- 00000000-ffffffff
+Addressing configuration for axi_interconnect instance TOP.custom_cpu_test.u_cpu_test_golden.u_cpu_arb.ic.axi_interconnect_inst
+ 0 ( 0): 00000000 / 32 -- 00000000-ffffffff
+=================================================
+Benchmark simulation passed!!!
+PERF cnt0  cycle              = 24711
+PERF cnt1  retire             = 900
+PERF cnt2  if_req_fire        = 1188
+PERF cnt3  if_resp_fire       = 1188
+PERF cnt4  if_req_wait        = 5724
+PERF cnt5  if_resp_wait       = 16324
+PERF cnt6  data_stall         = 0
+PERF cnt7  mem_stall          = 6506
+PERF cnt8  mem_load_stall     = 6274
+PERF cnt9  mem_store_stall    = 232
+PERF cnt10 ex_redirect        = 286
+PERF cnt11 if_discard_resp    = 286
+PERF cnt12 if_buffered_resp   = 207
+PERF cnt13 mem_req_fire       = 207
+PERF cnt14 mem_load_resp_fire = 199
+PERF cnt15 mem_store_req_fire = 8
+=================================================
+- fpga/design/ucas-cod/hardware/sim/custom_cpu/multi_cycle/custom_cpu_test.v:222: Verilog $finish

@@ -1,0 +1,9 @@
+variables:
+  # TARGET_DESIGN can be "example", "alu", "reg_file", "simple_cpu", "custom_cpu"...
+  TARGET_DESIGN: "custom_cpu"
+
+  # CPU_ISA must be either "mips" or "riscv32"
+  CPU_ISA: "riscv32"
+
+  # SIM_DUT_TYPE can be "single_cycle", "multi_cycle", "turbo"
+  SIM_DUT_TYPE: "dnn_test"
