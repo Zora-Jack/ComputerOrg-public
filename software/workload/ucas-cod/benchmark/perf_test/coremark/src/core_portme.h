@@ -1,3 +1,11 @@
+/*
+ * Course-platform copy of EEMBC CoreMark material, with local integration
+ * differences from the current official release. The original import
+ * revision and authors/license of course-specific additions are unverified.
+ * EEMBC upstream material: see ../LICENSE.txt (Apache 2.0 and CoreMark AUA).
+ * See docs/provenance-and-licensing.md at the repository root for scope.
+ * 2026-10-08: provenance/modification notice added; executable code unchanged.
+ */
 /* File: core_portme.h */
 
 /*

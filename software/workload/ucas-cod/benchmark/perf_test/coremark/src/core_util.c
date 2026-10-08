@@ -1,4 +1,12 @@
 /*
+ * Course-platform copy of EEMBC CoreMark material, with local integration
+ * differences from the current official release. The original import
+ * revision and authors/license of course-specific additions are unverified.
+ * EEMBC upstream material: see ../LICENSE.txt (Apache 2.0 and CoreMark AUA).
+ * See docs/provenance-and-licensing.md at the repository root for scope.
+ * 2026-10-08: provenance/modification notice added; executable code unchanged.
+ */
+/*
 Author : Shay Gal-On, EEMBC
 
 This file is part of  EEMBC(R) and CoreMark(TM), which are Copyright (C) 2009 

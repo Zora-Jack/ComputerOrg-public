@@ -1,6 +1,15 @@
 /*
  * Simple MD5 implementation (github.com/pod32g/md5)
  *
+ * Upstream implementation is provided under Apache License 2.0; see
+ * LICENSES/Apache-2.0-pod32g-MD5.txt at the repository root.
+ * This copy was adapted for the course benchmark: standalone I/O and main
+ * were replaced with benchmark helpers and bench_md5_* entry points.
+ * The original import revision and authors/license of course additions
+ * remain unverified; see docs/provenance-and-licensing.md.
+ * 2026-10-08: provenance and modification notice added; executable code
+ * was not changed by this audit.
+ *
  */
 
 #include <benchmark.h>
